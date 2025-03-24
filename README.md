@@ -86,4 +86,12 @@ This is the place for you to write reflections:
 
 #### Reflection Subscriber-1
 
+>In this tutorial, we used RwLock<> to synchronise the use of Vec of Notifications. Explain why it is necessary for this case, and explain why we do not use Mutex<> instead?
+
+We use ```RwLock<>``` instead of ```Mutex<>``` because the ```Vec``` of Notifications is read frequently but written to only occasionally. ```RwLock<>``` allows multiple threads to read simultaneously while ensuring exclusive access for writes, making it more efficient than ```Mutex<>```, which locks access for both reading and writing. Using ```Mutex<>``` would unnecessarily block all threads on any operation, reducing concurrency and performance.
+
+>In this tutorial, we used lazy_static external library to define Vec and DashMap as a “static” variable. Compared to Java where we can mutate the content of a static variable via a static function, why did not Rust allow us to do so?
+
+Rust does not allow direct mutation of static variables because it is not thread-safe. Unlike Java, where static variables can be modified via static functions, Rust enforces immutability to prevent data races in multi-threaded programs. ```lazy_static``` helps define static variables safely, ensuring controlled access while maintaining thread safety.
+
 #### Reflection Subscriber-2
