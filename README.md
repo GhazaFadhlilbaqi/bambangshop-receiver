@@ -95,3 +95,15 @@ We use ```RwLock<>``` instead of ```Mutex<>``` because the ```Vec``` of Notifica
 Rust does not allow direct mutation of static variables because it is not thread-safe. Unlike Java, where static variables can be modified via static functions, Rust enforces immutability to prevent data races in multi-threaded programs. ```lazy_static``` helps define static variables safely, ensuring controlled access while maintaining thread safety.
 
 #### Reflection Subscriber-2
+
+>Have you explored things outside of the steps in the tutorial, for example: src/lib.rs? If not, explain why you did not do so. If yes, explain things that you have learned from those other parts of code.
+
+Yes, I've extended the tutorial steps. In ```src/lib.rs```, I found data loading support functions from ```.env``` files and custom error handling. The file also initializes the Rocket app, defining static reqwest client and app settings instances for global use. Also, I researched ```RwLock``` and ```DashMap``` documentation—```RwLock``` allows multiple readers or a single writer at a time, while ```DashMap``` allows concurrent reads and writes efficiently. In ```main.rs```, the Rocket framework initializes the web server, manages application state, and defines routes for request processing.
+
+>Since you have completed the tutorial by now and have tried to test your notification system by spawning multiple instances of Receiver, explain how Observer pattern eases you to plug in more subscribers. How about spawning more than one instance of Main app, will it still be easy enough to add to the system?
+
+The Observer pattern makes it easy to add new subscribers without modifying the publisher, as subscribers register independently and the publisher only needs to notify them. This keeps the system flexible and scalable. However, spawning multiple instances of the main app can introduce challenges. If different publishers exist, ensuring all subscribers receive the correct updates may require additional logic to manage notification consistency across instances.
+
+>Have you tried to make your own Tests, or enhance documentation on your Postman collection? If you have tried those features, tell us whether it is useful for your work (it can be your tutorial work or your Group Project).
+
+Yes, I have added tests to the Postman collection to verify my endpoints, including multiple subscriptions and listening to different product types. This has been useful for ensuring the endpoints work as expected and return the correct data. Writing tests and enhancing documentation also help check code coverage, handle edge cases, and validate both happy and unhappy paths, improving the overall reliability of the system.
